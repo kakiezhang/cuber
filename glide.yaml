@@ -1,0 +1,5 @@
+package: .
+import:
+- package: github.com/gomodule/redigo
+  subpackages:
+  - redis
