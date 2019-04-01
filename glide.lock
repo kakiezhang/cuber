@@ -1,8 +1,10 @@
-hash: 991043b00192e8c1fcffac20e114ef78384ef06ca5209444efd98213057ccdc8
-updated: 2019-03-13T23:48:42.874073+08:00
+hash: dcbbde66db4e5f8bd0b55c7fd3797a6c63fa8624b90c1d728ddb944eb2fde4c5
+updated: 2019-04-01T11:06:41.243905+08:00
 imports:
+- name: github.com/bitly/go-simplejson
+  version: aabad6e819789e569bd6aabf444c935aa9ba1e44
 - name: github.com/gomodule/redigo
-  version: b47395aa17662ff86cb5c52f3bf669bf842ec27a
+  version: 39e2c31b7ca38b521ceb836620a269e62c895dc9
   subpackages:
   - redis
 testImports: []

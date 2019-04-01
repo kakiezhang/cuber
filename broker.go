@@ -9,8 +9,8 @@ import (
 )
 
 type config struct {
-	Pool *redis.Pool
-	// Fetch func(queue string) Fetcher
+	Pool  *redis.Pool
+	Fetch func(queue string) Fetcher
 }
 
 var Config *config
@@ -59,8 +59,8 @@ func Configure(options map[string]string) {
 				return err
 			},
 		},
-		// func(queue string) Fetcher {
-		// 	return NewFetch(queue, make(chan *Msg), make(chan bool))
-		// },
+		func(queue string) Fetcher {
+			return NewFetch(queue, make(chan *Msg))
+		},
 	}
 }
