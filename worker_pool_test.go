@@ -1,14 +1,22 @@
 package cuber
 
 import (
-	"log"
+	"testing"
 )
 
-func myJob(message *Msg) {
-	log.Println(message)
+type Ctx struct {
+	t *testing.T
 }
 
-func main() {
+var Ct *testing.T
+
+func myJob(message *Msg) {
+	Ct.Logf("myJob: %v", message)
+}
+
+func TestWorkerPool(t *testing.T) {
+	Ct = t
+
 	Configure(map[string]string{
 		"server":   "localhost:6380",
 		"database": "5",

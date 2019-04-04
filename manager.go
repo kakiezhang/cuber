@@ -1,7 +1,6 @@
 package cuber
 
 import (
-	"strings"
 	"sync"
 )
 
@@ -24,7 +23,7 @@ func (m *manager) start() {
 }
 
 func (m *manager) quit() {
-	Logger.Println("quitting queue", m.queueName(), "(waiting for", m.processing(), "/", len(m.workers), "workers).")
+	Logger.Println("quitting queue", m.queue, "(waiting for", m.processing(), "/", len(m.workers), "workers).")
 
 	if !m.fetch.Closed() {
 		m.fetch.Close()
@@ -45,7 +44,7 @@ func (m *manager) quit() {
 }
 
 func (m *manager) manage() {
-	Logger.Println("processing queue", m.queueName(), "with", m.concurrency, "workers.")
+	Logger.Println("processing queue", m.queue, "with", m.concurrency, "workers.")
 
 	go m.fetch.Fetch()
 
@@ -78,17 +77,13 @@ func (m *manager) processing() (count int) {
 	return
 }
 
-func (m *manager) queueName() string {
-	return strings.Replace(m.queue, "queue:", "", 1)
-}
-
 func (m *manager) reset() {
 	m.fetch = Config.Fetch(m.queue)
 }
 
 func newManager(queue string, job jobFunc, concurrency int) *manager {
 	m := &manager{
-		Config.Namespace + "queue:" + queue,
+		queue,
 		nil,
 		job,
 		concurrency,
